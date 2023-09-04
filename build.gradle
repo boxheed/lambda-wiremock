@@ -38,7 +38,7 @@ dependencies {
     implementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
     //Using the Cookie parsing, as this is present anyway from wiremock
     implementation 'org.eclipse.jetty:jetty-server:9.4.51.v20230217'
-
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
 }

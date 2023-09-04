@@ -6,14 +6,38 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.http.Response;
+import com.github.tomakehurst.wiremock.http.Request;
+import com.github.tomakehurst.wiremock.direct.DirectCallHttpServer;
+import com.github.tomakehurst.wiremock.direct.DirectCallHttpServerFactory;
+
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+
 import java.util.HashMap;
 
 public class LambdaWiremockHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
+
+    private DirectCallHttpServerFactory factory;
+    private WireMockServer wm;
+    private DirectCallHttpServer server;
+
+    public LambdaWiremockHandler() {
+        this.factory = new DirectCallHttpServerFactory();
+        this.wm = new WireMockServer(wireMockConfig().httpServerFactory(factory));
+        wm.start(); 
+        server = this.factory.getHttpServer();
+    }
+
 
     @Override
     public APIGatewayV2HTTPResponse handleRequest(APIGatewayV2HTTPEvent event, Context context) {
         LambdaLogger logger = context.getLogger();
         logger.log("EVENT TYPE: " + event.getClass().toString());
+        //Request wiremockRequest = new WiremockLambdaProxyRequest(event);
+        //Response wiremockResponse = server.stubRequest(wiremockRequest);
+
+
         APIGatewayV2HTTPResponse response = new APIGatewayV2HTTPResponse();
         response.setIsBase64Encoded(false);
         response.setStatusCode(200);

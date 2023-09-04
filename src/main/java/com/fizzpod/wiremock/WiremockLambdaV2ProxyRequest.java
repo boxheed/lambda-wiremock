@@ -3,6 +3,8 @@ package com.fizzpod.wiremock;
 import lombok.NonNull;
 import lombok.ToString;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.github.tomakehurst.wiremock.http.ContentTypeHeader;
 import com.github.tomakehurst.wiremock.http.Cookie;
 import com.github.tomakehurst.wiremock.http.HttpHeader;
@@ -12,7 +14,7 @@ import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.http.QueryParameter;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 
 import com.google.common.base.Optional;
 
@@ -33,15 +35,15 @@ import java.util.Base64;
 import java.net.URISyntaxException;
 
 @ToString
-public class WiremockLambdaProxyRequest implements Request {
+public class WiremockLambdaV2ProxyRequest implements Request {
 
     public static final int DEFAULT_PORT = 443;
     public static final String DEFAULT_SCHEME = "https";
 
-    private final APIGatewayProxyRequestEvent event;
+    private final APIGatewayV2HTTPEvent event;
+    //private final APIGatewayProxyRequestEvent event;
 
-    //TODO this should really be the v2 APIGatewayV2HTTPEvent
-    public WiremockLambdaProxyRequest(@NonNull APIGatewayProxyRequestEvent event) {
+    public WiremockLambdaV2ProxyRequest(@NonNull APIGatewayV2HTTPEvent event) {
         this.event = event;
     }
 
@@ -57,14 +59,15 @@ public class WiremockLambdaProxyRequest implements Request {
                         .setPort(this.getPort())
                         .setPath(java.util.Optional.ofNullable(event)
                             .map(event -> event.getRequestContext())
-                            .map(requestContext -> requestContext.getPath())
+                            .map(requestContext -> requestContext.getHttp())
+                            .map(http -> http.getPath())
                             .orElse("/"));
                     java.util.Optional.ofNullable(event)
-                        .map(event -> event.getMultiValueQueryStringParameters())
+                        .map(event -> event.getQueryStringParameters())
                         .map(parameters -> {
-                            for(String key: parameters.keySet()) {
-                                for(String value: parameters.get(key)) {
-                                    builder.addParameter(key, value);
+                            for(Map.Entry<String, String> entry : parameters.entrySet()) {
+                                for(String value: StringUtils.split(entry.getValue(), ',')) {
+                                    builder.addParameter(entry.getKey(), value);
                                 }
                             }
                             return builder;
@@ -85,7 +88,9 @@ public class WiremockLambdaProxyRequest implements Request {
 
     public RequestMethod getMethod() {
         return java.util.Optional.ofNullable(event)
-            .map(event -> event.getHttpMethod())
+            .map(event -> event.getRequestContext())
+            .map(requestContext -> requestContext.getHttp())
+            .map(http -> http.getMethod())
             .map(method -> "".equals(method.trim())? null: method.trim())
             .map(method -> RequestMethod.fromString(method.trim()))
             .orElse(null);
@@ -93,7 +98,7 @@ public class WiremockLambdaProxyRequest implements Request {
 
     public String getScheme() {
         return java.util.Optional.ofNullable(this.getHeader("X-Forwarded-Proto"))
-            .map(forwardedHeader -> forwardedHeader.split(","))
+            .map(forwardedHeader -> StringUtils.split(forwardedHeader, ','))
             .map(parts -> parts.length > 0? parts[0]: null)
             .map(scheme -> "".equals(scheme.trim())? null: scheme.trim())
             .orElse(DEFAULT_SCHEME);
@@ -125,12 +130,12 @@ public class WiremockLambdaProxyRequest implements Request {
     public String getClientIp() {
         String ip = java.util.Optional.ofNullable(event)
             .map(event -> event.getRequestContext())
-            .map(requestContext -> requestContext.getIdentity())
-            .map(identity -> identity.getSourceIp())
+            .map(requestContext -> requestContext.getHttp())
+            .map(http -> http.getSourceIp())
             .orElse(null);
         if(ip == null) {
             ip = java.util.Optional.ofNullable(this.getHeader("X-Forwarded-For"))
-                .map(forwardedHeader -> forwardedHeader.split(","))
+                .map(forwardedHeader -> StringUtils.split(forwardedHeader, ','))
                 .map(parts -> parts[0].trim())
                 .orElse(null);
         }
@@ -186,12 +191,15 @@ public class WiremockLambdaProxyRequest implements Request {
 
     public Map<String, Cookie> getCookies() {
         Map<String, Cookie> cookies = 
-        java.util.Optional.ofNullable(this.getHeader("Cookie"))
-            .map(cookieValue -> {
-                CookieCutter cutter = new CookieCutter();
-                cutter.addCookieField(cookieValue);
-                return cutter.getCookies();
-            }).map(cookieArr -> {
+            java.util.Optional.ofNullable(event)
+                .map(event -> event.getCookies())
+                .map(cookieList -> {
+                    CookieCutter cutter = new CookieCutter();
+                    for(String cookieValue: cookieList) {
+                        cutter.addCookieField(cookieValue);
+                    }
+                    return cutter.getCookies();
+                }).map(cookieArr -> {
                 Map<String, Cookie> cookieMap = new HashMap<>();
                 for(javax.servlet.http.Cookie cookie: cookieArr) {
                     String name = cookie.getName();
@@ -212,10 +220,10 @@ public class WiremockLambdaProxyRequest implements Request {
 
     public QueryParameter queryParameter(String key) {
         return java.util.Optional.ofNullable(event)
-            .map(event -> event.getMultiValueQueryStringParameters())
+            .map(event -> event.getQueryStringParameters())
             .map(parameterMap -> parameterMap.get(key))
             .map(parameters ->
-                new QueryParameter(key, parameters)
+                new QueryParameter(key, Arrays.asList(StringUtils.split(parameters, ',')))
             )
             .orElse(null);
     }
@@ -237,7 +245,6 @@ public class WiremockLambdaProxyRequest implements Request {
         return java.util.Optional.ofNullable(getBody())
             .map(body -> Base64.getEncoder().encodeToString(body))
             .orElse(null);
-        
     }
 
     public boolean isMultipart() {
@@ -263,7 +270,8 @@ public class WiremockLambdaProxyRequest implements Request {
     public String getProtocol() {
         return java.util.Optional.ofNullable(event)
             .map(event -> event.getRequestContext())
-            .map(requestContext -> requestContext.getProtocol())
+            .map(requestContext -> requestContext.getHttp())
+            .map(http -> http.getProtocol())
             .orElse(null);
     }
 

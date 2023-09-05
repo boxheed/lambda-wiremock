@@ -30,19 +30,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-public class WiremockLambdaProxyRequestTest {
+public class WiremockAPIGatewayProxyRequestTest {
 
     @Test
     public void testConstructorWithNulls() {
         assertThrows(NullPointerException.class, () -> {
-            WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(null);
+            WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(null);
         });
     }
 
     @Test
     public void testToString() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         APIGatewayProxyRequestEvent.ProxyRequestContext requestContext = new APIGatewayProxyRequestEvent.ProxyRequestContext();
         event.setRequestContext(requestContext);
         APIGatewayProxyRequestEvent.RequestIdentity requestIdentity = new APIGatewayProxyRequestEvent.RequestIdentity();
@@ -52,7 +52,7 @@ public class WiremockLambdaProxyRequestTest {
 
     @Test
     public void testNullValuesInEvent() {
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(new APIGatewayProxyRequestEvent());
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(new APIGatewayProxyRequestEvent());
         assertNull(request.getUrl());
         assertNull(request.getAbsoluteUrl());
         assertNull(request.getMethod());
@@ -94,7 +94,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetMethod() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getMethod());
         event.setHttpMethod("");
         assertNull(request.getMethod());
@@ -112,7 +112,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetScheme() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         Map<String, String> headers = new HashMap<>();
         event.setHeaders(headers);
         assertEquals("https", request.getScheme());
@@ -140,7 +140,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetHost() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getHost());
         APIGatewayProxyRequestEvent.ProxyRequestContext requestContext = new APIGatewayProxyRequestEvent.ProxyRequestContext();
         event.setRequestContext(requestContext);
@@ -166,7 +166,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetPort() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertEquals(443, request.getPort());
         Map<String, String> headers = new HashMap<>();
         event.setHeaders(headers);
@@ -180,7 +180,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetClientIp() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getClientIp());
         APIGatewayProxyRequestEvent.ProxyRequestContext requestContext = new APIGatewayProxyRequestEvent.ProxyRequestContext();
         event.setRequestContext(requestContext);
@@ -202,7 +202,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetHeader() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getHeader(null));
         assertNull(request.getHeader(""));
         assertNull(request.getHeader("xxx"));
@@ -227,7 +227,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testHeader() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.header(null));
         assertNull(request.header(""));
         assertNull(request.header("xxx"));
@@ -249,7 +249,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testContentTypeHeader() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.contentTypeHeader());
         Map<String, String> headers = new HashMap<>();
         event.setHeaders(headers);
@@ -264,7 +264,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetHeaders() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNotNull(request.getHeaders());
         assertEquals(0, request.getHeaders().size());
         Map<String, String> headers = new HashMap<>();
@@ -292,7 +292,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testContainsHeader() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertFalse(request.containsHeader(null));
         assertFalse(request.containsHeader(""));
         assertFalse(request.containsHeader("   "));
@@ -318,7 +318,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetAllHeaderKeys() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNotNull(request.getAllHeaderKeys());
         assertEquals(0, request.getAllHeaderKeys().size());
         Map<String, String> headers = new HashMap<>();
@@ -338,7 +338,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetCookies() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNotNull(request.getCookies());
         assertEquals(0, request.getCookies().size());
         Map<String, String> headers = new HashMap<>();
@@ -365,7 +365,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testQueryParameter() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.queryParameter("abc"));
         Map<String, List<String>> parameters = new HashMap<>();
         event.setMultiValueQueryStringParameters(parameters);
@@ -378,7 +378,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetBody() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getBody());
         event.setBody("");
         assertEquals(0, request.getBody().length);
@@ -389,7 +389,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetBodyAsString() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getBodyAsString());
         event.setBody("");
         assertEquals("", request.getBodyAsString());
@@ -400,7 +400,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetBodyAsBase64() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getBodyAsBase64());
         event.setBody("");
         assertEquals("", request.getBodyAsBase64());
@@ -411,7 +411,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetProtocol() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getProtocol());
         APIGatewayProxyRequestEvent.ProxyRequestContext requestContext = new APIGatewayProxyRequestEvent.ProxyRequestContext();
         event.setRequestContext(requestContext);
@@ -423,7 +423,7 @@ public class WiremockLambdaProxyRequestTest {
     @Test
     public void testGetUrl() {
         var event = new APIGatewayProxyRequestEvent();
-        WiremockLambdaProxyRequest request = new WiremockLambdaProxyRequest(event);
+        WiremockAPIGatewayProxyRequest request = new WiremockAPIGatewayProxyRequest(event);
         assertNull(request.getUrl());
         APIGatewayProxyRequestEvent.ProxyRequestContext requestContext = new APIGatewayProxyRequestEvent.ProxyRequestContext();
         event.setRequestContext(requestContext);

@@ -33,7 +33,7 @@ import java.util.Base64;
 import java.net.URISyntaxException;
 
 @ToString
-public class WiremockLambdaProxyRequest implements Request {
+public class WiremockAPIGatewayProxyRequest implements Request {
 
     public static final int DEFAULT_PORT = 443;
     public static final String DEFAULT_SCHEME = "https";
@@ -41,7 +41,7 @@ public class WiremockLambdaProxyRequest implements Request {
     private final APIGatewayProxyRequestEvent event;
 
     //TODO this should really be the v2 APIGatewayV2HTTPEvent
-    public WiremockLambdaProxyRequest(@NonNull APIGatewayProxyRequestEvent event) {
+    public WiremockAPIGatewayProxyRequest(@NonNull APIGatewayProxyRequestEvent event) {
         this.event = event;
     }
 

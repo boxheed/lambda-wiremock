@@ -34,7 +34,7 @@ public class LambdaWiremockHandler implements RequestHandler<APIGatewayV2HTTPEve
     public APIGatewayV2HTTPResponse handleRequest(APIGatewayV2HTTPEvent event, Context context) {
         LambdaLogger logger = context.getLogger();
         logger.log("EVENT TYPE: " + event.getClass().toString());
-        Request wiremockRequest = new WiremockLambdaV2ProxyRequest(event);
+        Request wiremockRequest = new WiremockAPIGatewayV2HTTPRequest(event);
         Response wiremockResponse = server.stubRequest(wiremockRequest);
 
 

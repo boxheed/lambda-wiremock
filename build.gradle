@@ -22,6 +22,7 @@ apply plugin: 'groovy'
 apply plugin: 'com.fizzpod.github-release'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'io.freefair.lombok'
+apply plugin: 'java-library'
 
 shadowJar {
    archiveClassifier.set('lambda')
@@ -32,6 +33,8 @@ build.dependsOn shadowJar
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.504')
     
+    implementation 'org.apache.groovy:groovy-all:4.0.14'
+
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.2'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.2'
 

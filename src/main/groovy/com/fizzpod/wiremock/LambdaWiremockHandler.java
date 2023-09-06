@@ -37,7 +37,6 @@ public class LambdaWiremockHandler implements RequestHandler<APIGatewayV2HTTPEve
         Request wiremockRequest = new WiremockAPIGatewayV2HTTPRequest(event);
         Response wiremockResponse = server.stubRequest(wiremockRequest);
 
-
         APIGatewayV2HTTPResponse response = new APIGatewayV2HTTPResponse();
         response.setIsBase64Encoded(false);
         response.setStatusCode(200);

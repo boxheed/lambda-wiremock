@@ -11,6 +11,10 @@ import com.github.tomakehurst.wiremock.http.Response;
 import com.github.tomakehurst.wiremock.http.Request;
 import com.github.tomakehurst.wiremock.direct.DirectCallHttpServer;
 import com.github.tomakehurst.wiremock.direct.DirectCallHttpServerFactory;
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
+import com.github.tomakehurst.wiremock.common.FileSource;
+import com.github.tomakehurst.wiremock.common.ClasspathFileSource;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
@@ -24,7 +28,11 @@ public class LambdaWiremockHandler implements RequestHandler<APIGatewayV2HTTPEve
 
     public LambdaWiremockHandler() {
         this.factory = new DirectCallHttpServerFactory();
-        this.wm = new WireMockServer(wireMockConfig().httpServerFactory(factory));
+        var config = wireMockConfig()
+                .httpServerFactory(factory)
+                .usingFilesUnderClasspath("wiremock")
+                .notifier(new ConsoleNotifier(true));
+        this.wm = new WireMockServer(config);
         wm.start(); 
         server = this.factory.getHttpServer();
     }
@@ -36,6 +44,8 @@ public class LambdaWiremockHandler implements RequestHandler<APIGatewayV2HTTPEve
         logger.log("EVENT TYPE: " + event.getClass().toString());
         Request wiremockRequest = new WiremockAPIGatewayV2HTTPRequest(event);
         Response wiremockResponse = server.stubRequest(wiremockRequest);
+
+        System.out.println("Wiremock Response: " + wiremockResponse);
 
         APIGatewayV2HTTPResponse response = new APIGatewayV2HTTPResponse();
         response.setIsBase64Encoded(false);

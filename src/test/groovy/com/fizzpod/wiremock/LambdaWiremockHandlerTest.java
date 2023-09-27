@@ -52,6 +52,13 @@ public class LambdaWiremockHandlerTest {
         when(context.getLogger()).thenReturn(logger);
 
         event = EventLoader.loadApiGatewayHttpEvent("apigateway/requests/01_example.json");
+        System.out.println(event);
+    }
+
+    @Test
+    public void testExampleEventMapping() {
+        WiremockAPIGatewayV2HTTPRequest request = new WiremockAPIGatewayV2HTTPRequest(event);
+        assertEquals("https://id.execute-api.us-east-1.amazonaws.com:443/api/v1/scans/22c5/files/9mrz", request.getUrl());
     }
 
     @Test

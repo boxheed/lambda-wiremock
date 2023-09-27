@@ -43,7 +43,7 @@ public abstract class AbstractWiremockAPIGatewayRequest implements Request {
     public AbstractWiremockAPIGatewayRequest(@NonNull def event) {
         this.event = event;
     }
-
+	
     public abstract String getUrl() 
 
     public String getAbsoluteUrl() {

@@ -22,19 +22,10 @@ import java.util.HashMap;
 
 public class LambdaWiremockHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
 
-    private DirectCallHttpServerFactory factory;
-    private WireMockServer wm;
     private DirectCallHttpServer server;
 
     public LambdaWiremockHandler() {
-        this.factory = new DirectCallHttpServerFactory();
-        var config = wireMockConfig()
-                .httpServerFactory(factory)
-                .usingFilesUnderClasspath("wiremock")
-                .notifier(new ConsoleNotifier(true));
-        this.wm = new WireMockServer(config);
-        wm.start(); 
-        server = this.factory.getHttpServer();
+    	this.server = WiremockServerBuilderFactory.getBuilder().build();
     }
 
 
@@ -48,6 +39,8 @@ public class LambdaWiremockHandler implements RequestHandler<APIGatewayV2HTTPEve
         System.out.println("Wiremock Response: " + wiremockResponse);
 
         APIGatewayV2HTTPResponse response = new APIGatewayV2HTTPResponse();
+        
+        
         response.setIsBase64Encoded(false);
         response.setStatusCode(200);
         HashMap<String, String> headers = new HashMap<String, String>();

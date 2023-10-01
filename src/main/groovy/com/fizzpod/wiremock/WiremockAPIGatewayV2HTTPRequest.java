@@ -1,38 +1,26 @@
 package com.fizzpod.wiremock;
 
-import lombok.NonNull;
-import lombok.ToString;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.github.tomakehurst.wiremock.http.ContentTypeHeader;
-import com.github.tomakehurst.wiremock.http.Cookie;
-import com.github.tomakehurst.wiremock.http.HttpHeader;
-import com.github.tomakehurst.wiremock.http.HttpHeaders;
-import com.github.tomakehurst.wiremock.http.Request;
-import com.github.tomakehurst.wiremock.http.RequestMethod;
-import com.github.tomakehurst.wiremock.http.QueryParameter;
-
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
-
-import com.google.common.base.Optional;
-
-import org.eclipse.jetty.server.CookieCutter;
-import org.apache.hc.core5.net.URIBuilder;
-
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.Base64;
-import java.net.URISyntaxException;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.hc.core5.net.URIBuilder;
+import org.eclipse.jetty.server.CookieCutter;
+
+import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
+import com.github.tomakehurst.wiremock.http.Cookie;
+import com.github.tomakehurst.wiremock.http.QueryParameter;
+import com.github.tomakehurst.wiremock.http.RequestMethod;
+
+import lombok.NonNull;
+import lombok.ToString;
 
 @ToString
 public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayRequest  {

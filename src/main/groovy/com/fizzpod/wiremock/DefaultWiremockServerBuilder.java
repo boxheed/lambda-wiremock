@@ -2,8 +2,6 @@ package com.fizzpod.wiremock;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
-import java.util.ServiceLoader;
-
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.direct.DirectCallHttpServer;

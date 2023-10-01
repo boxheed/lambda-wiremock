@@ -142,7 +142,7 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
                 Map<String, Cookie> cookieMap = new HashMap<>();
                 for(javax.servlet.http.Cookie cookie: cookieArr) {
                     String name = cookie.getName();
-                    List<String> values = new ArrayList();
+                    List<String> values = new ArrayList<>();
                     values.add(cookie.getValue());
                     if(cookieMap.containsKey(name)) {
                         Cookie c = cookieMap.get(name);

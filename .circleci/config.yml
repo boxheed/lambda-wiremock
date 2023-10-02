@@ -90,14 +90,14 @@ workflows:
             - build
           filters:
             branches:
-              only: /^(?:release.*|develop)$/
+              only: /^(?:release.*|security.*)$/
       - release:
           context: boxhead-builds
           requires:
             - build
           filters:
             branches:
-              only: /^(?:mainx|masterx)$/
+              only: /^(?:main|master)$/
       - publish:
           context: boxhead-builds
           filters:

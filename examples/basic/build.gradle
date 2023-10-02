@@ -1,0 +1,27 @@
+plugins {
+  id 'java-library'
+  id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+repositories {
+  mavenCentral()
+  maven {
+    url "https://artifacts.fizzpod.com/public/mvn/"
+  }
+}
+
+
+jar {
+  archiveClassifier.set('plain')
+}
+
+shadowJar {
+  archiveClassifier.set("")
+}
+
+build.dependsOn shadowJar
+
+dependencies {
+  implementation 'com.fizzpod:lambda-wiremock-lib:+'
+}
+

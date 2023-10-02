@@ -19,7 +19,7 @@ buildscript {
 
 apply plugin: 'com.fizzpod.github-release'
 
-subprojects {
+allprojects {
     apply plugin: 'com.fizzpod.pater-build'
 }
 
@@ -32,8 +32,10 @@ githubRelease {
     targetCommitish "main" 
     generateReleaseNotes true 
     draft true 
-    dryRun false
+    dryRun true
     releaseAssets { ->
-        jar.outputs.files
+        project(':lambda-wiremock-lib').jar.outputs.files.getFiles() + 
+        project(':lambda-wiremock-runtime').jar.outputs.files.getFiles()
+        
     }
 }

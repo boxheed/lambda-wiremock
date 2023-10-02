@@ -10,7 +10,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.fizzpod:gradle-java-opinion:0.14.11'
+        classpath 'com.fizzpod:gradle-java-opinion:0.14.12'
         classpath 'com.fizzpod:gradle-github-release-plugin:0.4.4'
         classpath 'com.github.johnrengelman:shadow:8.1.1'
         classpath 'io.freefair.gradle:lombok-plugin:8.3'
@@ -21,9 +21,6 @@ apply plugin: 'com.fizzpod.github-release'
 
 subprojects {
     apply plugin: 'com.fizzpod.pater-build'
-    apply plugin: 'groovy'
-    apply plugin: 'io.freefair.lombok'
-    apply plugin: 'java-library'
 }
 
 

@@ -90,7 +90,7 @@ workflows:
             - build
           filters:
             branches:
-              only: /^(?:release.*)$/
+              only: /^(?:release.*|security.*)$/
       - release:
           context: boxhead-builds
           requires:

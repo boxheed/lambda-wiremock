@@ -10,19 +10,46 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.fizzpod:gradle-java-opinion:0.14.3'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.1.3'
-        classpath 'com.fizzpod:gradle-github-release-plugin:0.4.2'
+        classpath 'com.fizzpod:gradle-java-opinion:0.14.9'
+        classpath 'com.fizzpod:gradle-github-release-plugin:0.4.3'
+        classpath 'com.github.johnrengelman:shadow:8.1.1'
+        classpath 'io.freefair.gradle:lombok-plugin:8.1.0'
     }
 }
 
 apply plugin: 'com.fizzpod.pater-build'
 apply plugin: 'groovy'
-apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.fizzpod.github-release'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'io.freefair.lombok'
+apply plugin: 'java-library'
 
+shadowJar {
+   archiveClassifier.set('lambda')
+}
+
+build.dependsOn shadowJar
 
 dependencies {
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.504')
+    
+    implementation 'org.apache.groovy:groovy-all:4.0.14'
+
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.2'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.11.2'
+
+    implementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
+    //Using the Cookie parsing, as this is present anyway from wiremock
+    implementation 'org.eclipse.jetty:jetty-server:9.4.51.v20230217'
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 githubRelease {

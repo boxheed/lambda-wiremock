@@ -51,8 +51,8 @@ jobs:
           name: setup
           command: source <(curl -s https://raw.githubusercontent.com/boxheed/shippable-scripts/master/java-build-ci-setup)
       - checkout
-      - run: ./gradlew createRelease
-      - run: git push --tags
+#      - run: ./gradlew createRelease
+#      - run: git push --tags
 
   publish:
     docker:
@@ -69,9 +69,7 @@ jobs:
           command: source <(curl -s https://raw.githubusercontent.com/boxheed/shippable-scripts/master/java-build-ci-setup)
       - checkout
 #      - run: ./gradlew clean verifyRelease -Prelease.disableRemoteCheck
-      - run: ./gradlew build
-      - run: ./gradlew bootDistTar
-      - run: ./gradlew bootDistZip
+      - run: ./gradlew build bootDistTar bootDistZip
       - run: ./gradlew publish
       - run: ./gradlew githubRelease
       - store_artifacts:
@@ -92,14 +90,14 @@ workflows:
             - build
           filters:
             branches:
-              only: /^release.*$/
+              only: /^(?:release.*|develop)$/
       - release:
           context: boxhead-builds
           requires:
             - build
           filters:
             branches:
-              only: /^(?:main|master)$/
+              only: /^(?:mainx|masterx)$/
       - publish:
           context: boxhead-builds
           filters:

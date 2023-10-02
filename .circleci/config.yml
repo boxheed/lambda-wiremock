@@ -69,15 +69,9 @@ jobs:
           command: source <(curl -s https://raw.githubusercontent.com/boxheed/shippable-scripts/master/java-build-ci-setup)
       - checkout
 #      - run: ./gradlew clean verifyRelease -Prelease.disableRemoteCheck
-      - run: ./gradlew build bootDistTar bootDistZip
+      - run: ./gradlew build
       - run: ./gradlew publish
       - run: ./gradlew githubRelease
-      - store_artifacts:
-          path: ./build/distributions
-      - store_artifacts:
-          path: ./build/libs
-
-
 
 workflows:
   build:

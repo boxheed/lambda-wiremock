@@ -33,7 +33,7 @@ build.dependsOn shadowJar
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.504')
     
-    implementation 'org.apache.groovy:groovy-all:4.0.14'
+    implementation 'org.apache.groovy:groovy-all:4.0.15'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.2'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.2'

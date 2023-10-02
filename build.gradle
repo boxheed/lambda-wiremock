@@ -10,8 +10,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.fizzpod:gradle-java-opinion:0.14.9'
-        classpath 'com.fizzpod:gradle-github-release-plugin:0.4.3'
+        classpath 'com.fizzpod:gradle-java-opinion:0.14.11'
+        classpath 'com.fizzpod:gradle-github-release-plugin:0.4.4'
         classpath 'com.github.johnrengelman:shadow:8.1.1'
         classpath 'io.freefair.gradle:lombok-plugin:8.1.0'
     }
@@ -33,12 +33,12 @@ build.dependsOn shadowJar
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.504')
     
-    implementation 'org.apache.groovy:groovy-all:4.0.14'
+    implementation 'org.apache.groovy:groovy-all:4.0.15'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.2'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.2'
 
-    implementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
+    implementation 'com.github.tomakehurst:wiremock-jre8:2.35.1'
     //Using the Cookie parsing, as this is present anyway from wiremock
     implementation 'org.eclipse.jetty:jetty-server:9.4.51.v20230217'
     implementation 'org.apache.commons:commons-lang3:3.13.0'

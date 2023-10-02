@@ -38,12 +38,12 @@ public class LambdaWiremockHandlerTest {
 
     @Test
     public void createLambdaServer() {
-        LambdaWiremockHandler handler = new LambdaWiremockHandler();
+        APIGatewayV2HTTPLambdaHandler handler = new APIGatewayV2HTTPLambdaHandler();
     }
 
     @Test
     public void sendRequest() {
-        LambdaWiremockHandler handler = new LambdaWiremockHandler();
+        APIGatewayV2HTTPLambdaHandler handler = new APIGatewayV2HTTPLambdaHandler();
         APIGatewayV2HTTPResponse response = handler.handleRequest(event, context);
         assertEquals(200, response.getStatusCode());
         assertEquals(3, response.getHeaders().size());

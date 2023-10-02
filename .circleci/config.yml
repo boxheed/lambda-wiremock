@@ -97,7 +97,7 @@ workflows:
             - build
           filters:
             branches:
-              only: /^(?:mainx|masterx)$/
+              only: /^(?:main|master)$/
       - publish:
           context: boxhead-builds
           filters:

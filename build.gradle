@@ -32,7 +32,7 @@ githubRelease {
     targetCommitish "main" 
     generateReleaseNotes true 
     draft true 
-    dryRun true
+    dryRun false
     releaseAssets { ->
         project(':lambda-wiremock-lib').jar.outputs.files.getFiles() + 
         project(':lambda-wiremock-runtime').jar.outputs.files.getFiles()

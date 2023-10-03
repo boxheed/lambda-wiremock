@@ -4,5 +4,3 @@ plugins {
 }
 
 rootProject.name = 'lambda-wiremock'
-include 'lambda-wiremock-lib',
-  'lambda-wiremock-runtime'

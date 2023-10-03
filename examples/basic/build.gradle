@@ -5,18 +5,10 @@ plugins {
 
 repositories {
   mavenCentral()
+  mavenLocal()
   maven {
     url "https://artifacts.fizzpod.com/public/mvn/"
   }
-}
-
-
-jar {
-  archiveClassifier.set('plain')
-}
-
-shadowJar {
-  archiveClassifier.set("")
 }
 
 build.dependsOn shadowJar

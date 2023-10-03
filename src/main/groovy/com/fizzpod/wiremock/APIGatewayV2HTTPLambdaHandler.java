@@ -8,6 +8,9 @@ import com.github.tomakehurst.wiremock.direct.DirectCallHttpServer;
 import com.github.tomakehurst.wiremock.http.Request;
 import com.github.tomakehurst.wiremock.http.Response;
 
+import software.amazon.lambda.powertools.logging.CorrelationIdPathConstants;
+import software.amazon.lambda.powertools.logging.Logging;
+
 public class APIGatewayV2HTTPLambdaHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
 
     private DirectCallHttpServer server;
@@ -16,6 +19,7 @@ public class APIGatewayV2HTTPLambdaHandler implements RequestHandler<APIGatewayV
     
     private ResponseAdaptor<APIGatewayV2HTTPResponse> responseAdaptor;
 
+    
     public APIGatewayV2HTTPLambdaHandler() {
     	this.server = WiremockServerBuilderFactory.getBuilder().build();
     	this.requestAdaptor = AdaptorFactory.getRequestAdaptor(APIGatewayV2HTTPEvent.class);
@@ -23,6 +27,7 @@ public class APIGatewayV2HTTPLambdaHandler implements RequestHandler<APIGatewayV
     }
 
     @Override
+    @Logging(logEvent = true, correlationIdPath = CorrelationIdPathConstants.API_GATEWAY_REST)
     public APIGatewayV2HTTPResponse handleRequest(APIGatewayV2HTTPEvent event, Context context) {
         Request wiremockRequest = requestAdaptor.adapt(event);
         Response wiremockResponse = server.stubRequest(wiremockRequest);

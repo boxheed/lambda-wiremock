@@ -13,15 +13,16 @@ buildscript {
         classpath 'com.fizzpod:gradle-java-opinion:0.14.12'
         classpath 'com.fizzpod:gradle-github-release-plugin:0.4.4'
         classpath 'io.freefair.gradle:lombok-plugin:8.3'
+        classpath 'io.freefair.gradle:aspectj-plugin:8.3'
     }
 }
 
 apply plugin: 'com.fizzpod.pater-build'
-
 apply plugin: 'com.fizzpod.github-release'
+apply plugin: 'java-library'
 apply plugin: 'groovy'
 apply plugin: 'io.freefair.lombok'
-apply plugin: 'java-library'
+apply plugin: 'io.freefair.aspectj.post-compile-weaving'
 
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.560')
@@ -35,6 +36,8 @@ dependencies {
     //Using the Cookie parsing, as this is present anyway from wiremock
     implementation 'org.eclipse.jetty:jetty-server:9.4.52.v20230823'
     implementation 'org.apache.commons:commons-lang3:3.13.0'
+
+    aspect 'software.amazon.lambda:powertools-logging:1.17.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'org.mockito:mockito-core:5.5.0'

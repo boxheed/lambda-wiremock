@@ -73,7 +73,7 @@
     "id" : "b82a448e-1376-4d59-9e0c-ff4d76ebc6cf",
     "name" : "List of all the projects you're following on CircleCI, with build information or...",
     "request" : {
-      "urlPath" : "/projects",
+      "urlPathPattern" : ".*/projects",
       "method" : "GET"
     },
     "response" : {

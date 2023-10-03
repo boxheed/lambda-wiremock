@@ -24,7 +24,6 @@ public class APIGatewayV2HTTPLambdaHandler implements RequestHandler<APIGatewayV
 
     @Override
     public APIGatewayV2HTTPResponse handleRequest(APIGatewayV2HTTPEvent event, Context context) {
-    	System.out.println("BANANA");
         Request wiremockRequest = requestAdaptor.adapt(event);
         Response wiremockResponse = server.stubRequest(wiremockRequest);
         APIGatewayV2HTTPResponse response = responseAdaptor.adapt(wiremockResponse);

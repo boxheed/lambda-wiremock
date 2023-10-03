@@ -1,0 +1,36 @@
+plugins {
+  id 'java-library'
+  id 'application'
+  id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+  maven {
+    url "https://artifacts.fizzpod.com/public/mvn/"
+  }
+}
+
+application {
+    mainClass = 'com.fizzpod.wiremock.Main'
+}
+
+jar {
+  archiveClassifier.set('plain')
+}
+
+shadowJar {
+  archiveClassifier.set("")
+}
+
+build.dependsOn shadowJar
+
+dependencies {
+
+  implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
+  implementation 'com.amazonaws:aws-lambda-java-events:3.11.3'
+  implementation 'com.fizzpod:lambda-wiremock:+'
+  implementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
+}
+

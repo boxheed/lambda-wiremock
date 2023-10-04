@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.3'
 
-    implementation 'com.github.tomakehurst:wiremock-jre8:2.35.1'
+    implementation 'com.github.tomakehurst:wiremock-jre8:3.0.1'
 
     implementation 'org.apache.commons:commons-lang3:3.13.0'
 

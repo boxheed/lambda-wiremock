@@ -3,7 +3,7 @@ package com.fizzpod.wiremock;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
+import com.github.tomakehurst.wiremock.common.Slf4jNotifier;
 import com.github.tomakehurst.wiremock.direct.DirectCallHttpServer;
 import com.github.tomakehurst.wiremock.direct.DirectCallHttpServerFactory;
 
@@ -23,7 +23,7 @@ public class DefaultWiremockServerBuilder implements WiremockServerBuilder {
 	        var config = wireMockConfig()
 	                .httpServerFactory(factory)
 	                .usingFilesUnderClasspath("wiremock")
-	                .notifier(new ConsoleNotifier(true));
+	                .notifier(new Slf4jNotifier(true));
 	        this.wm = new WireMockServer(config);
 	        wm.start(); 
 	        server = this.factory.getHttpServer();

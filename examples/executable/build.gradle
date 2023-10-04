@@ -6,7 +6,7 @@ plugins {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 compileJava {
-    options.release = 17
+  options.release = 17
 }
 
 repositories {
@@ -23,7 +23,7 @@ shadowJar {
 }
 
 application {
-    mainClass = 'com.fizzpod.wiremock.Main'
+  mainClass = 'com.fizzpod.wiremock.Main'
 }
 
 build.dependsOn shadowJar

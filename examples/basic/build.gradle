@@ -11,6 +11,11 @@ repositories {
   }
 }
 
+//fix log4j2 configurations when creating a shadow jar file
+shadowJar {
+  transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer)
+}
+
 build.dependsOn shadowJar
 
 dependencies {

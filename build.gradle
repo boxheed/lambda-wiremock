@@ -23,6 +23,18 @@ apply plugin: 'java-library'
 apply plugin: 'groovy'
 apply plugin: 'io.freefair.lombok'
 apply plugin: 'io.freefair.aspectj.post-compile-weaving'
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+compileJava {
+    options.release = 17
+}
+
+compileGroovy {
+    options.release = 17
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
 
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.560')
@@ -33,9 +45,10 @@ dependencies {
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.3'
 
     implementation 'com.github.tomakehurst:wiremock-jre8:2.35.1'
-    //Using the Cookie parsing, as this is present anyway from wiremock
-    implementation 'org.eclipse.jetty:jetty-server:9.4.52.v20230823'
+
     implementation 'org.apache.commons:commons-lang3:3.13.0'
+
+    implementation 'org.aspectj:aspectjrt:1.9.20.1'
 
     aspect 'software.amazon.lambda:powertools-logging:1.17.0'
 

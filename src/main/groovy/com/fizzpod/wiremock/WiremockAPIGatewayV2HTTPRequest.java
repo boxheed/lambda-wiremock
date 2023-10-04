@@ -1,5 +1,6 @@
 package com.fizzpod.wiremock;
 
+import java.net.HttpCookie;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +13,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.core5.net.URIBuilder;
-import org.eclipse.jetty.server.CookieCutter;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.github.tomakehurst.wiremock.http.Cookie;
@@ -133,14 +133,14 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
             java.util.Optional.ofNullable(event)
                 .map(event -> event.getCookies())
                 .map(cookieList -> {
-                    CookieCutter cutter = new CookieCutter();
+                	List<HttpCookie> allCookies = new ArrayList<>();
                     for(String cookieValue: cookieList) {
-                        cutter.addCookieField(cookieValue);
+                    	allCookies.addAll(HttpCookie.parse(cookieValue));
                     }
-                    return cutter.getCookies();
+                    return allCookies;
                 }).map(cookieArr -> {
                 Map<String, Cookie> cookieMap = new HashMap<>();
-                for(javax.servlet.http.Cookie cookie: cookieArr) {
+                for(HttpCookie cookie: cookieArr) {
                     String name = cookie.getName();
                     List<String> values = new ArrayList<>();
                     values.add(cookie.getValue());

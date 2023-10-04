@@ -4,6 +4,11 @@ plugins {
   id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+compileJava {
+  options.release = 17
+}
+
 repositories {
   mavenCentral()
   mavenLocal()
@@ -18,7 +23,7 @@ shadowJar {
 }
 
 application {
-    mainClass = 'com.fizzpod.wiremock.Main'
+  mainClass = 'com.fizzpod.wiremock.Main'
 }
 
 build.dependsOn shadowJar

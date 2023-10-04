@@ -26,7 +26,7 @@ build.dependsOn shadowJar
 dependencies {
   implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
   implementation 'com.amazonaws:aws-lambda-java-events:3.11.3'
-  implementation 'com.fizzpod:lambda-wiremock:0.1.5'
+  implementation 'com.fizzpod:lambda-wiremock:+'
   implementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
 }
 

@@ -13,7 +13,7 @@ buildscript {
         classpath 'com.fizzpod:gradle-java-opinion:0.14.12'
         classpath 'com.fizzpod:gradle-github-release-plugin:0.4.4'
         classpath 'io.freefair.gradle:lombok-plugin:8.4'
-        classpath 'io.freefair.gradle:aspectj-plugin:8.3'
+        classpath 'io.freefair.gradle:aspectj-plugin:8.4'
     }
 }
 

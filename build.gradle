@@ -11,9 +11,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.fizzpod:gradle-java-opinion:0.14.12'
-        classpath 'com.fizzpod:gradle-github-release-plugin:0.4.4'
-        classpath 'io.freefair.gradle:lombok-plugin:8.3'
-        classpath 'io.freefair.gradle:aspectj-plugin:8.3'
+        classpath 'com.fizzpod:gradle-github-release-plugin:0.4.5'
+        classpath 'io.freefair.gradle:lombok-plugin:8.4'
+        classpath 'io.freefair.gradle:aspectj-plugin:8.4'
     }
 }
 
@@ -37,7 +37,7 @@ jacoco {
 }
 
 dependencies {
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.560')
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.576')
     
     implementation 'org.apache.groovy:groovy-all:4.0.15'
 
@@ -53,7 +53,7 @@ dependencies {
     aspect 'software.amazon.lambda:powertools-logging:1.17.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'org.mockito:mockito-core:5.6.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
 }
 

@@ -177,17 +177,4 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
             .orElse(null);
     }
 
-	@Override
-	public FormParameter formParameter(String key) {
-		
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Map<String, FormParameter> formParameters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

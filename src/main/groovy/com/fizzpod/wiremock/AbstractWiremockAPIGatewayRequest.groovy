@@ -178,13 +178,13 @@ public abstract class AbstractWiremockAPIGatewayRequest implements Request {
 			return java.util.Optional.ofNullable(event)
 			.map(event -> event.getQueryStringParameters())
 			.map(parameterMap -> {
-				Map<String, FormParameter> parameters = new HashMap<>();
-				parameterMap.each( k,v -> 
-					parameters.put(k, Arrays.asList(StringUtils.split(v, ',')))
+				def parameters = [:];
+				parameterMap.each( entry -> 
+					parameters.put(entry.key, new FormParameter(entry.key, Arrays.asList(StringUtils.split(entry.value, ','))))
 				)
 				return parameters;
 			})
-			.orElse(new HashMap<String, FormParameter>());
+			.orElse(Collections.emptyMap());
 		} else if(RequestMethod.POST.equals(method) && "application/x-www-form-urlencoded".equals(contentTypeHeader)) {
 			Map<String, FormParameter> parameters = new HashMap<>()
 			List<NameValuePair> queryString = WWWFormCodec.parse(this.getBodyAsString(), Charset.forName("UTF-8"));
@@ -199,10 +199,8 @@ public abstract class AbstractWiremockAPIGatewayRequest implements Request {
 			return parameters;
 		} else if(RequestMethod.POST.equals(method) && "multipart/form-data".equals(contentTypeHeader)) {
 			//TODO implement this
-			return new HashMap<>();
 		}
-		return null;
-		return parameters;
+		return Collections.emptyMap();
 	}
 
 }

@@ -90,6 +90,10 @@ public class WiremockAPIGatewayPV2HTTRequestTest {
         assertTrue(request.isBrowserProxyRequest());
         assertEquals(Optional.empty(), request.getOriginalRequest());
         assertNull(request.getProtocol());
+        assertNotNull(request.formParameters());
+        assertNull(request.formParameter("abc"));
+        assertNull(request.formParameter(null));
+        assertNull(request.formParameter(""));
     }
 
     @Test
@@ -461,5 +465,34 @@ public class WiremockAPIGatewayPV2HTTRequestTest {
         assertEquals("http://www.example.com:9191/this/is/a/path?abc=def", request.getUrl());
     }
     
+    @Test
+    public void testGetFormParametersWithGet() {
+    	var event = new APIGatewayV2HTTPEvent();
+        WiremockAPIGatewayV2HTTPRequest request = new WiremockAPIGatewayV2HTTPRequest(event);
+        assertNull(request.getMethod());
+        APIGatewayV2HTTPEvent.RequestContext  requestContext = new APIGatewayV2HTTPEvent.RequestContext ();
+        event.setRequestContext(requestContext);
+        assertNull(request.getMethod());
+        APIGatewayV2HTTPEvent.RequestContext.Http http = new APIGatewayV2HTTPEvent.RequestContext.Http();
+        requestContext.setHttp(http);
+        assertNull(request.getMethod());
+        http.setMethod("GET");
+
+        assertNotNull(request.formParameters());
+        assertEquals(0, request.formParameters().size());
+        
+        Map<String, String> parameters = new HashMap<>();
+        
+        event.setQueryStringParameters(parameters);
+        
+        assertNotNull(request.formParameters());
+        assertEquals(0, request.formParameters().size());
+        
+        parameters.put("abc", "def");
+        assertEquals(1, request.formParameters().size());
+        assertNull(request.formParameters().get("def"));
+        assertNotNull(request.formParameters().get("abc"));
+        assertEquals(1, request.formParameters().get("abc").values().size());
+    }
 
 }

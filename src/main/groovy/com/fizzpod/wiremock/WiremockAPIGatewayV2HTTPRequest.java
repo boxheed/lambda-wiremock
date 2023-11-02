@@ -16,6 +16,7 @@ import org.apache.hc.core5.net.URIBuilder;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.github.tomakehurst.wiremock.http.Cookie;
+import com.github.tomakehurst.wiremock.http.FormParameter;
 import com.github.tomakehurst.wiremock.http.QueryParameter;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 
@@ -35,6 +36,7 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
         this.event = event;
     }
 
+    @Override
     public String getUrl() {
         String url = java.util.Optional.ofNullable(this.getScheme())
             .map(scheme -> this.getHost())
@@ -70,10 +72,12 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
         return url;
     }
 
+    @Override
     public String getAbsoluteUrl() {
         return this.getUrl();
     }
 
+    @Override
     public RequestMethod getMethod() {
         return java.util.Optional.ofNullable(event)
             .map(event -> event.getRequestContext())
@@ -83,11 +87,8 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
             .map(method -> RequestMethod.fromString(method.trim()))
             .orElse(null);
     }
-
-
-
  
- 
+    @Override
     public int getPort() {
         return java.util.Optional.ofNullable(this.getHeader("Host"))
             .map(hostHeader -> hostHeader.split(":"))
@@ -95,6 +96,7 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
             .orElse(DEFAULT_PORT);
     }
 
+    @Override
     public String getClientIp() {
         String ip = java.util.Optional.ofNullable(event)
             .map(event -> event.getRequestContext())
@@ -110,10 +112,7 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
         return ip;
     }
 
-    
-    
-    
-    
+    @Override
     public Set<String> getAllHeaderKeys() {
         return Collections.unmodifiableSet(
             java.util.Optional.ofNullable(event)
@@ -128,6 +127,7 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
         );
     }
 
+    @Override
     public Map<String, Cookie> getCookies() {
         Map<String, Cookie> cookies = 
             java.util.Optional.ofNullable(event)
@@ -157,6 +157,7 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
         return Collections.unmodifiableMap(cookies);
     }
 
+    @Override
     public QueryParameter queryParameter(String key) {
         return java.util.Optional.ofNullable(event)
             .map(event -> event.getQueryStringParameters())
@@ -167,7 +168,7 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
             .orElse(null);
     }
 
-
+    @Override
     public String getProtocol() {
         return java.util.Optional.ofNullable(event)
             .map(event -> event.getRequestContext())
@@ -175,5 +176,18 @@ public class WiremockAPIGatewayV2HTTPRequest extends AbstractWiremockAPIGatewayR
             .map(http -> http.getProtocol())
             .orElse(null);
     }
+
+	@Override
+	public FormParameter formParameter(String key) {
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, FormParameter> formParameters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 import com.github.tomakehurst.wiremock.http.ContentTypeHeader;
 import com.github.tomakehurst.wiremock.http.Cookie;
@@ -88,7 +88,7 @@ public class WiremockAPIGatewayPV2HTTRequestTest {
         assertNull(request.getPart(""));
         assertNull(request.getPart("abc"));
         assertTrue(request.isBrowserProxyRequest());
-        assertEquals(Optional.absent(), request.getOriginalRequest());
+        assertEquals(Optional.empty(), request.getOriginalRequest());
         assertNull(request.getProtocol());
     }
 

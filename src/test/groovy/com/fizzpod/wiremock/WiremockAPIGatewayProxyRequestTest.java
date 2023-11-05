@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 import com.github.tomakehurst.wiremock.http.ContentTypeHeader;
 import com.github.tomakehurst.wiremock.http.Cookie;
@@ -24,6 +24,7 @@ import com.github.tomakehurst.wiremock.http.QueryParameter;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -86,8 +87,12 @@ public class WiremockAPIGatewayProxyRequestTest {
         assertNull(request.getPart(null));
         assertNull(request.getPart(""));
         assertNull(request.getPart("abc"));
+        assertNotNull(request.formParameters());
+        assertNull(request.formParameter("abc"));
+        assertNull(request.formParameter(null));
+        assertNull(request.formParameter(""));
         assertTrue(request.isBrowserProxyRequest());
-        assertEquals(Optional.absent(), request.getOriginalRequest());
+        assertEquals(Optional.empty(), request.getOriginalRequest());
         assertNull(request.getProtocol());
     }
 
@@ -439,5 +444,33 @@ public class WiremockAPIGatewayProxyRequestTest {
         assertEquals("http://www.example.com:9191/this/is/a/path?abc=def", request.getUrl());
     }
     
+    @Test
+    public void testGetFormParametersWithGet() {
+    	var event = new APIGatewayV2HTTPEvent();
+        WiremockAPIGatewayV2HTTPRequest request = new WiremockAPIGatewayV2HTTPRequest(event);
+        assertNull(request.getMethod());
+        APIGatewayV2HTTPEvent.RequestContext  requestContext = new APIGatewayV2HTTPEvent.RequestContext ();
+        event.setRequestContext(requestContext);
+        assertNull(request.getMethod());
+        APIGatewayV2HTTPEvent.RequestContext.Http http = new APIGatewayV2HTTPEvent.RequestContext.Http();
+        requestContext.setHttp(http);
+        assertNull(request.getMethod());
+        http.setMethod("GET");
 
+        assertNotNull(request.formParameters());
+        assertEquals(0, request.formParameters().size());
+        
+        Map<String, String> parameters = new HashMap<>();
+        
+        event.setQueryStringParameters(parameters);
+        
+        assertNotNull(request.formParameters());
+        assertEquals(0, request.formParameters().size());
+        
+        parameters.put("abc", "def");
+        assertEquals(1, request.formParameters().size());
+        assertNull(request.formParameters().get("def"));
+        assertNotNull(request.formParameters().get("abc"));
+        assertEquals(1, request.formParameters().get("abc").values().size());
+    }
 }

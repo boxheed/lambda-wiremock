@@ -1,15 +1,21 @@
 package com.fizzpod.wiremock;
 
 import java.util.stream.Collectors;
+import java.nio.charset.Charset;
+
+import org.apache.commons.lang3.StringUtils
+import org.apache.hc.core5.http.NameValuePair
+import org.apache.hc.core5.http.NameValuePair
+import org.apache.hc.core5.net.WWWFormCodec
 
 import com.github.tomakehurst.wiremock.http.ContentTypeHeader;
 import com.github.tomakehurst.wiremock.http.Cookie;
+import com.github.tomakehurst.wiremock.http.FormParameter
 import com.github.tomakehurst.wiremock.http.HttpHeader;
 import com.github.tomakehurst.wiremock.http.HttpHeaders;
 import com.github.tomakehurst.wiremock.http.QueryParameter;
 import com.github.tomakehurst.wiremock.http.Request;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
-import com.google.common.base.Optional;
 
 import lombok.NonNull;
 import lombok.ToString;
@@ -114,7 +120,7 @@ public abstract class AbstractWiremockAPIGatewayRequest implements Request {
         );
     }
 
-public abstract Map<String, Cookie> getCookies()
+	public abstract Map<String, Cookie> getCookies()
     
 
     public abstract QueryParameter queryParameter(String key)
@@ -156,9 +162,45 @@ public abstract Map<String, Cookie> getCookies()
     }
 
     public Optional<Request> getOriginalRequest() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     public abstract String getProtocol()
+	
+	public FormParameter formParameter(String key) {
+		return this.formParameters().get(key);
+	}
+
+	public Map<String, FormParameter> formParameters() {
+		RequestMethod method = this.getMethod();
+		String contentTypeHeader = this.getHeader("Content-Type");
+		if(RequestMethod.GET.equals(method)) {
+			return java.util.Optional.ofNullable(event)
+			.map(event -> event.getQueryStringParameters())
+			.map(parameterMap -> {
+				def parameters = [:];
+				parameterMap.each( entry -> 
+					parameters.put(entry.key, new FormParameter(entry.key, Arrays.asList(StringUtils.split(entry.value, ','))))
+				)
+				return parameters;
+			})
+			.orElse(Collections.emptyMap());
+		} else if(RequestMethod.POST.equals(method) && "application/x-www-form-urlencoded".equals(contentTypeHeader)) {
+			Map<String, FormParameter> parameters = new HashMap<>()
+			List<NameValuePair> queryString = WWWFormCodec.parse(this.getBodyAsString(), Charset.forName("UTF-8"));
+			for(NameValuePair pair: queryString) {
+				String name = pair.getName();
+				String value = pair.getValue();
+				FormParameter parameter = parameters.getOrDefault(name, FormParameter.absent(name))
+				List<String> values = new ArrayList<>(parameter.getValues());
+				values.add(value);
+				parameters.put(name, new FormParameter(name, values))
+			}
+			return parameters;
+		} else if(RequestMethod.POST.equals(method) && "multipart/form-data".equals(contentTypeHeader)) {
+			//TODO implement this
+		}
+		return Collections.emptyMap();
+	}
 
 }

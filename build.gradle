@@ -39,7 +39,7 @@ jacoco {
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.595')
     
-    implementation 'org.apache.groovy:groovy-all:4.0.15'
+    implementation 'org.apache.groovy:groovy-all:4.0.16'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.3'

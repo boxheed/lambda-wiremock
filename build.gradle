@@ -10,8 +10,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.fizzpod:gradle-java-opinion:0.14.13'
-        classpath 'com.fizzpod:gradle-github-release-plugin:1.0.2'
+        classpath 'com.fizzpod:gradle-java-opinion:0.14.15'
+        classpath 'com.fizzpod:gradle-github-release-plugin:1.0.4'
         classpath 'io.freefair.gradle:lombok-plugin:8.6'
         classpath 'io.freefair.gradle:aspectj-plugin:8.6'
     }
@@ -37,23 +37,23 @@ jacoco {
 }
 
 dependencies {
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.661')
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.701')
     
-    implementation 'org.apache.groovy:groovy-all:4.0.18'
+    implementation 'org.apache.groovy:groovy-all:4.0.21'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
-    implementation 'com.amazonaws:aws-lambda-java-events:3.11.4'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.11.5'
 
     implementation 'com.github.tomakehurst:wiremock-jre8:3.0.1'
 
     implementation 'org.apache.commons:commons-lang3:3.14.0'
 
-    implementation 'org.aspectj:aspectjrt:1.9.21.1'
+    implementation 'org.aspectj:aspectjrt:1.9.22'
 
     aspect 'software.amazon.lambda:powertools-logging:1.18.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testImplementation 'org.mockito:mockito-core:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.11.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
 }
 

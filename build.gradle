@@ -10,8 +10,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.fizzpod:gradle-java-opinion:0.14.19'
-        classpath 'com.fizzpod:gradle-github-release-plugin:1.0.9'
+        classpath 'com.fizzpod:gradle-java-opinion:0.14.21'
         classpath 'io.freefair.gradle:lombok-plugin:8.6'
         classpath 'io.freefair.gradle:aspectj-plugin:8.6'
     }
@@ -37,7 +36,7 @@ jacoco {
 }
 
 dependencies {
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.730')
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.734')
     
     implementation 'org.apache.groovy:groovy-all:4.0.21'
 
@@ -55,6 +54,38 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
     testImplementation 'org.mockito:mockito-core:5.12.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
+
+    constraints {
+        implementation('org.xmlunit:xmlunit-core') {
+            because 'version 2.9.1 imported indirectly as a dependency has a vulnerability'
+            version {
+                require '2.10.0'
+            }
+        }
+
+        implementation('org.eclipse.jetty:jetty-bom') {
+            because 'version 11.0.15 imported indirectly as a dependency has a vulnerability'
+            version {
+                require '11.0.21'
+            }
+        }
+
+        implementation('com.jayway.jsonpath:json-path') {
+            because 'version 2.8.0 imported indirectly as a dependency has a vulnerability'
+            version {
+                require '2.9.0'
+            }
+        }
+
+        implementation('org.wiremock:wiremock') {
+            because 'version 3.0.1 imported indirectly as a dependency has a vulnerability'
+            version {
+                require '3.0.4'
+            }
+        }
+
+        
+    }
 }
 
 test {

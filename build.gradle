@@ -84,6 +84,13 @@ dependencies {
             }
         }
 
+        implementation('commons-io:commons-io') {
+            because 'version 2.14.0 imported indirectly as a dependency has a vulnerability'
+            version {
+                require '2.14.0'
+            }
+        }
+
         
     }
 }

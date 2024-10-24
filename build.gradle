@@ -66,9 +66,10 @@ dependencies {
         implementation('org.eclipse.jetty:jetty-bom') {
             because 'version 11.0.15 imported indirectly as a dependency has a vulnerability'
             version {
-                require '11.0.21'
+                require '11.0.24'
             }
         }
+
 
         implementation('com.jayway.jsonpath:json-path') {
             because 'version 2.8.0 imported indirectly as a dependency has a vulnerability'

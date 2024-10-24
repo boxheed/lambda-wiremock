@@ -1,0 +1,3 @@
+[[IgnoredVulns]]
+id = "GHSA-qh8g-58pp-2wxh"
+reason = "Not applicable in a wiremock lambda implementation"

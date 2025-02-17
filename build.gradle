@@ -41,7 +41,7 @@ dependencies {
     implementation 'org.apache.groovy:groovy-all:4.0.25'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
-    implementation 'com.amazonaws:aws-lambda-java-events:3.14.0'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.15.0'
 
     implementation 'com.github.tomakehurst:wiremock-jre8:3.0.1'
 

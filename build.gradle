@@ -12,7 +12,7 @@ buildscript {
     dependencies {
         classpath 'com.fizzpod:gradle-java-opinion:0.14.28'
         classpath 'io.freefair.gradle:lombok-plugin:8.12.1'
-        classpath 'io.freefair.gradle:aspectj-plugin:8.12.1'
+        classpath 'io.freefair.gradle:aspectj-plugin:8.12.2'
     }
 }
 

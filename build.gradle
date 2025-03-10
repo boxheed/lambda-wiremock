@@ -49,7 +49,7 @@ dependencies {
 
     implementation 'org.aspectj:aspectjrt:1.9.22.1'
 
-    aspect 'software.amazon.lambda:powertools-logging:1.18.0'
+    aspect 'software.amazon.lambda:powertools-logging:1.19.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.12.0'
     testImplementation 'org.mockito:mockito-core:5.16.0'

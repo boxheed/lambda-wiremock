@@ -11,8 +11,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.fizzpod:gradle-java-opinion:0.14.28'
-        classpath 'io.freefair.gradle:lombok-plugin:8.12.2'
-        classpath 'io.freefair.gradle:aspectj-plugin:8.12.2'
+        classpath 'io.freefair.gradle:lombok-plugin:8.13.1'
+        classpath 'io.freefair.gradle:aspectj-plugin:8.13.1'
     }
 }
 
@@ -38,7 +38,7 @@ jacoco {
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.782')
     
-    implementation 'org.apache.groovy:groovy-all:4.0.25'
+    implementation 'org.apache.groovy:groovy-all:4.0.26'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
     implementation 'com.amazonaws:aws-lambda-java-events:3.15.0'
@@ -47,12 +47,12 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.17.0'
 
-    implementation 'org.aspectj:aspectjrt:1.9.22.1'
+    implementation 'org.aspectj:aspectjrt:1.9.24'
 
-    aspect 'software.amazon.lambda:powertools-logging:1.18.0'
+    aspect 'software.amazon.lambda:powertools-logging:1.20.0'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.0'
-    testImplementation 'org.mockito:mockito-core:5.15.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+    testImplementation 'org.mockito:mockito-core:5.17.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
 
     constraints {
@@ -91,7 +91,15 @@ dependencies {
                 require '2.14.0'
             }
         }
-
+ 
+        implementation('net.minidev:json-smart') {
+            //TODO change this to 2.5.2 when it is released
+            because 'version 2.5.0 imported as a dependency has a vulnerability'
+            version {
+                require '2.5.2'
+            }
+        }
+  
         
     }
 }

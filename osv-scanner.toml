@@ -10,5 +10,5 @@ reason = "Awaiting release of fix from transient dependency"
 
 [[IgnoredVulns]]
 id = "GHSA-p53j-g8pw-4w5f"
-ignoreUntil = 2025-010-01
+ignoreUntil = 2025-10-01
 reason = "Awaiting release of fix from transient dependency"

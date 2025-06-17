@@ -36,11 +36,11 @@ jacoco {
 }
 
 dependencies {
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.783')
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.787')
     
-    implementation 'org.apache.groovy:groovy-all:4.0.26'
+    implementation 'org.apache.groovy:groovy-all:4.0.27'
 
-    implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
+    implementation 'com.amazonaws:aws-lambda-java-core:1.3.0'
     implementation 'com.amazonaws:aws-lambda-java-events:3.15.0'
 
     implementation 'com.github.tomakehurst:wiremock-jre8:3.0.1'
@@ -51,7 +51,7 @@ dependencies {
 
     aspect 'software.amazon.lambda:powertools-logging:1.20.2'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.1'
     testImplementation 'org.mockito:mockito-core:5.18.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.1'
 

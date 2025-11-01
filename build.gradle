@@ -10,7 +10,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.fizzpod:gradle-java-opinion:0.14.35'
+        classpath 'com.fizzpod:gradle-java-opinion:0.14.36'
         classpath 'io.freefair.gradle:lombok-plugin:8.14'
         classpath 'io.freefair.gradle:aspectj-plugin:8.14'
     }
@@ -66,7 +66,7 @@ dependencies {
         implementation('org.eclipse.jetty:jetty-bom') {
             because 'version 11.0.15 imported indirectly as a dependency has a vulnerability'
             version {
-                require '11.0.24'
+                require '11.0.26'
             }
         }
 

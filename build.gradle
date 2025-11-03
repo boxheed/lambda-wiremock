@@ -51,7 +51,7 @@ dependencies {
 
     aspect 'software.amazon.lambda:powertools-logging:1.20.2'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
     testImplementation 'org.mockito:mockito-core:5.19.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.2'
 

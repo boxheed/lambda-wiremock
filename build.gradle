@@ -36,7 +36,7 @@ jacoco {
 }
 
 dependencies {
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.788')
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.793')
     
     implementation 'org.apache.groovy:groovy-all:5.0.2'
 

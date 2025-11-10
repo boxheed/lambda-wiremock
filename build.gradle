@@ -11,8 +11,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.fizzpod:gradle-java-opinion:0.14.36'
-        classpath 'io.freefair.gradle:lombok-plugin:9.0.0'
-        classpath 'io.freefair.gradle:aspectj-plugin:9.0.0'
+        classpath 'io.freefair.gradle:lombok-plugin:9.1.0'
+        classpath 'io.freefair.gradle:aspectj-plugin:9.1.0'
     }
 }
 
@@ -47,12 +47,12 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.19.0'
 
-    implementation 'org.aspectj:aspectjrt:1.9.24'
+    implementation 'org.aspectj:aspectjrt:1.9.25'
 
     aspect 'software.amazon.lambda:powertools-logging:2.6.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
-    testImplementation 'org.mockito:mockito-core:5.19.0'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.2'
 
     constraints {

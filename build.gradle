@@ -10,9 +10,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.fizzpod:gradle-java-opinion:0.14.28'
-        classpath 'io.freefair.gradle:lombok-plugin:8.14'
-        classpath 'io.freefair.gradle:aspectj-plugin:8.14'
+        classpath 'com.fizzpod:gradle-java-opinion:0.14.36'
+        classpath 'io.freefair.gradle:lombok-plugin:9.1.0'
+        classpath 'io.freefair.gradle:aspectj-plugin:9.1.0'
     }
 }
 
@@ -36,23 +36,23 @@ jacoco {
 }
 
 dependencies {
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.788')
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.793')
     
-    implementation 'org.apache.groovy:groovy-all:4.0.28'
+    implementation 'org.apache.groovy:groovy-all:5.0.2'
 
-    implementation 'com.amazonaws:aws-lambda-java-core:1.3.0'
+    implementation 'com.amazonaws:aws-lambda-java-core:1.4.0'
     implementation 'com.amazonaws:aws-lambda-java-events:3.16.1'
 
     implementation 'com.github.tomakehurst:wiremock-jre8:3.0.1'
 
-    implementation 'org.apache.commons:commons-lang3:3.18.0'
+    implementation 'org.apache.commons:commons-lang3:3.19.0'
 
-    implementation 'org.aspectj:aspectjrt:1.9.24'
+    implementation 'org.aspectj:aspectjrt:1.9.25'
 
-    aspect 'software.amazon.lambda:powertools-logging:1.20.2'
+    aspect 'software.amazon.lambda:powertools-logging:2.6.0'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
-    testImplementation 'org.mockito:mockito-core:5.19.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.2'
 
     constraints {
@@ -66,7 +66,7 @@ dependencies {
         implementation('org.eclipse.jetty:jetty-bom') {
             because 'version 11.0.15 imported indirectly as a dependency has a vulnerability'
             version {
-                require '11.0.24'
+                require '11.0.26'
             }
         }
 

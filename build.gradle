@@ -49,7 +49,7 @@ dependencies {
 
     implementation 'org.aspectj:aspectjrt:1.9.25'
 
-    aspect 'software.amazon.lambda:powertools-logging:2.8.0'
+    aspect 'software.amazon.lambda:powertools-logging:2.9.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
     testImplementation 'org.mockito:mockito-core:5.21.0'
@@ -113,6 +113,19 @@ dependencies {
             }
         }
         
+        implementation('org.apache.logging.log4j:log4j-core') {
+            because 'version 2.25.2 imported as a dependency has a vulnerability'
+            version {
+                require '2.25.3'
+            }
+        }
+        spotbugs('org.apache.logging.log4j:log4j-core') {
+            because 'version 2.25.2 imported as a dependency has a vulnerability'
+            version {
+                require '2.25.3'
+            }
+        }
+
     }
 }
 

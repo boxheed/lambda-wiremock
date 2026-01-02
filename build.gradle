@@ -112,7 +112,14 @@ dependencies {
                 require '3.18.0'
             }
         }
+
         
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.apache.logging.log4j:log4j-core:2.25.3'
     }
 }
 

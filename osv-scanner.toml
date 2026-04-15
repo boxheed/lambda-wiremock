@@ -17,3 +17,15 @@ reason = "Awaiting release of fix from transient dependency"
 id = "GHSA-j288-q9x7-2f5v"
 ignoreUntil = 2026-02-01
 reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-72hv-8253-57qq"
+reason = "Unused vulnerability"
+
+[[IgnoredVulns]]
+id = "GHSA-wjpw-4j6x-6rwh"
+reason = "Unused vulnerability"
+
+[[IgnoredVulns]]
+id = "GHSA-73m2-qfq3-56cx"
+reason = "Unused vulnerability"

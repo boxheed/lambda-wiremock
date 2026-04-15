@@ -11,8 +11,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.fizzpod:gradle-java-opinion:0.14.36'
-        classpath 'io.freefair.gradle:lombok-plugin:9.1.0'
-        classpath 'io.freefair.gradle:aspectj-plugin:9.1.0'
+        classpath 'io.freefair.gradle:lombok-plugin:9.2.0'
+        classpath 'io.freefair.gradle:aspectj-plugin:9.2.0'
     }
 }
 
@@ -36,9 +36,9 @@ jacoco {
 }
 
 dependencies {
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.795')
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.797')
     
-    implementation 'org.apache.groovy:groovy-all:5.0.3'
+    implementation 'org.apache.groovy:groovy-all:5.0.5'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.4.0'
     implementation 'com.amazonaws:aws-lambda-java-events:3.16.1'
@@ -47,12 +47,12 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.20.0'
 
-    implementation 'org.aspectj:aspectjrt:1.9.25'
+    implementation 'org.aspectj:aspectjrt:1.9.25.1'
 
-    aspect 'software.amazon.lambda:powertools-logging:2.8.0'
+    aspect 'software.amazon.lambda:powertools-logging:2.10.0'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
-    testImplementation 'org.mockito:mockito-core:5.21.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.3'
+    testImplementation 'org.mockito:mockito-core:5.23.0'
     testImplementation 'com.amazonaws:aws-lambda-java-tests:1.1.2'
 
     constraints {
@@ -112,7 +112,27 @@ dependencies {
                 require '3.18.0'
             }
         }
+
         
+        implementation('org.apache.logging.log4j:log4j-core') {
+            because 'version 2.25.2 imported as a dependency has a vulnerability'
+            version {
+                require '2.25.3'
+            }
+        }
+        spotbugs('org.apache.logging.log4j:log4j-core') {
+            because 'version 2.25.2 imported as a dependency has a vulnerability'
+            version {
+                require '2.25.3'
+            }
+        }
+
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.apache.logging.log4j:log4j-core:2.25.4'
     }
 }
 

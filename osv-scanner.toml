@@ -33,3 +33,35 @@ reason = "Unused vulnerability"
 [[IgnoredVulns]]
 id = "GHSA-355h-qmc2-wpwf"
 reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-5hh8-q8hv-fr38"
+reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-5jmj-h7xm-6q6v"
+reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-9fxm-vc8v-hj55"
+reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-hgj6-7826-r7m5"
+reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-j3rv-43j4-c7qm"
+reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-rcqc-6cw3-h962"
+reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-rmj7-2vxq-3g9f"
+reason = "Awaiting release of fix from transient dependency"
+
+[[IgnoredVulns]]
+id = "GHSA-r4gv-qr8j-p3pg"
+reason = "Awaiting release of fix from transient dependency"

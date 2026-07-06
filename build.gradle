@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.amazonaws:aws-lambda-java-core:1.4.0'
     implementation 'com.amazonaws:aws-lambda-java-events:3.16.1'
 
-    implementation 'com.github.tomakehurst:wiremock-jre8:3.0.1'
+    implementation 'org.wiremock:wiremock:3.12.0'
 
     implementation 'org.apache.commons:commons-lang3:3.20.0'
 
@@ -77,13 +77,6 @@ dependencies {
             }
         }
 
-        implementation('org.wiremock:wiremock') {
-            because 'version 3.0.1 imported indirectly as a dependency has a vulnerability'
-            version {
-                require '3.0.4'
-            }
-        }
-
         implementation('commons-io:commons-io') {
             because 'version 2.14.0 imported indirectly as a dependency has a vulnerability'
             version {
@@ -106,7 +99,7 @@ dependencies {
             }
         }
 
-        implementation("rg.apache.commons:commons-lang3") {
+        implementation("org.apache.commons:commons-lang3") {
             because 'version 3.14.0 imported as a dependency has a vulnerability'
             version {
                 require '3.18.0'
@@ -120,6 +113,7 @@ dependencies {
                 require '2.25.3'
             }
         }
+
         spotbugs('org.apache.logging.log4j:log4j-core') {
             because 'version 2.25.2 imported as a dependency has a vulnerability'
             version {

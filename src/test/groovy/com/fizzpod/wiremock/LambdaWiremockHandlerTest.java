@@ -39,6 +39,7 @@ public class LambdaWiremockHandlerTest {
     @Test
     public void createLambdaServer() {
         APIGatewayV2HTTPLambdaHandler handler = new APIGatewayV2HTTPLambdaHandler();
+        org.junit.jupiter.api.Assertions.assertNotNull(handler);
     }
 
     @Test

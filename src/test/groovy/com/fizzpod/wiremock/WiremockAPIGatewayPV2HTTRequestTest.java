@@ -402,7 +402,7 @@ public class WiremockAPIGatewayPV2HTTRequestTest {
         event.setBody("");
         assertEquals(0, request.getBody().length);
         event.setBody("abc123");
-        assertArrayEquals("abc123".getBytes(), request.getBody());
+        assertArrayEquals("abc123".getBytes(java.nio.charset.StandardCharsets.UTF_8), request.getBody());
     }
 
     @Test

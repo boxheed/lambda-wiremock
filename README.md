@@ -1,36 +1,55 @@
-# Wiremock Lambda Handler
+> [!IMPORTANT]
+> **PROJECT ARCHIVED**: This repository is archived and no longer actively maintained. The code remains available for historical reference, viewing, and forking.
+>
+> **Recommended Alternatives:**
+> * **[WireMock Cloud](https://www.wiremock.io/):** Official hosted/SaaS WireMock platform requiring no infrastructure maintenance.
+> * **WireMock Docker in AWS Lambda / ECS / App Runner:** Deploy the official `wiremock/wiremock` OCI container image directly to AWS Lambda container support or container services like AWS App Runner / ECS Fargate.
+> * **AWS API Gateway Mock Integration:** Built-in API Gateway mock endpoints for lightweight static stubs.
 
-This project provides a framework for creating Java based Lambda's using Wiremock as the mocking engine. 
+# WireMock AWS Lambda Handler (`lambda-wiremock`)
 
-**Motivation**
+This project provides a lightweight framework for running [WireMock](https://wiremock.org/) as an in-memory mocking engine inside Java-based AWS Lambda functions.
 
-This library looks to provide an alternative and pluggable way to run wiremock inside a Java based AWS Lambda that other solutions do not provide.  
+## Overview & Motivation
 
-**Features**
+Running WireMock inside an AWS Lambda traditionally required spinning up an HTTP web server (such as Jetty or Spring Boot), which adds significant cold-start latency and overhead. 
 
-The key features are:
+`lambda-wiremock` bridges AWS API Gateway events directly to WireMock using WireMock's in-memory `DirectCallHttpServer`. This avoids HTTP server startup costs and delivers fast, lightweight mock responses directly within the Lambda execution environment.
 
-* Lightweight - other solutions use Spring Boot to bridge between AWS Lambdas and Wiremock, Spring is notoriously heavy weight solution and doesn't (in my opinion) play nicely within a Lambda
-* Pluggable - using the Java Service Loader it is possible to plugin in key parts of the implementation 
+## Key Features
 
+* **Lightweight & Fast**: Uses `DirectCallHttpServer` for direct in-memory request routing, bypassing Jetty/Spring Boot startup overhead.
+* **AWS Event Support**: Adapts both AWS API Gateway V2 HTTP events (`APIGatewayV2HTTPEvent`) and API Gateway V1 REST Proxy events (`APIGatewayProxyRequestEvent`).
+* **Classpath Stub Loading**: Automatically loads WireMock mapping definitions from `wiremock/mappings/*.json` on the classpath.
+* **Pluggable Architecture**: Uses Java `ServiceLoader` to allow customization of server builders (`WiremockServerBuilder`) and adaptors (`RequestAdaptor`, `ResponseAdaptor`).
+* **Powertools Logging Integration**: Integrates with AWS Lambda Powertools for structured logging and correlation tracking.
 
-**Building the library**
+## Building and Testing
 
-To install and build the project, follow these steps:
+**Prerequisites:** Java 17+ and Gradle.
 
-1. Clone the repository: `git clone https://github.com/my-username/my-project.git`
-2. Run the gradle wrapper `./gradlew build`
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/boxheed/lambda-wiremock.git
+   cd lambda-wiremock
+   ```
 
-**Contributing**
+2. Build and run tests using the Gradle wrapper:
+   ```bash
+   ./gradlew build
+   ```
 
-If you would like to contribute to my project, please follow these guidelines:
+## Usage & Examples
 
-* Create a pull request with your changes.
-* Include a description of your changes in the pull request message.
-* Make sure your changes pass all of the tests.
-* Make the pull request against the `develop` branch
+Check the [`examples/`](./examples) directory for complete sample projects:
+* **[`examples/basic`](./examples/basic)**: Demonstrates integrating `lambda-wiremock-lib` in a Gradle project packaged with ShadowJar for deployment to AWS Lambda.
+* **[`examples/executable`](./examples/executable)**: Demonstrates running standalone stubs.
 
-**License**
+Handler class configuration for AWS Lambda:
+`com.fizzpod.wiremock.APIGatewayV2HTTPLambdaHandler`
 
-This project is released under the Apache 2 license.
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
+
 
